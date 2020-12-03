@@ -6,6 +6,7 @@ import com.reubencoutinho.springrest.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,11 +44,24 @@ public class MainController {
     }
 
     @GetMapping("/api/course/pagination") //localhost:8080/api/course/pagination?page=2&size=2
-    public CourseDto getCoursePages(@RequestParam(value = "page",required = false,defaultValue = "0") int page,
-                                    @RequestParam(value = "size",required = false,defaultValue = "4") int size) {
+    public CourseDto getCoursePages(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                                    @RequestParam(value = "size", required = false, defaultValue = "4") int size,
+                                    @RequestParam(value = "sort", required = false, defaultValue = "ASC") String direction,
+                                    @RequestParam(value = "sortParam", required = false, defaultValue = "price") String sortParam) {
         CourseDto dto = new CourseDto();
         double total = 0;
-        Pageable pageable = PageRequest.of(page,size);
+        //Sorting By Descending or Ascending
+        //localhost:8080/api/course/pagination?page=0&size=2&sort=DESC
+
+        //Sorting By Name
+        //localhost:8080/api/course/pagination?sortParam=name
+        Sort sort;
+        if (direction.equals("ASC")) {
+            sort = Sort.by(Sort.Direction.ASC, sortParam);
+        } else {
+            sort = Sort.by(Sort.Direction.DESC, sortParam);
+        }
+        Pageable pageable = PageRequest.of(page, size, sort);
 
         List<Course> list = courseRepository.findAll(pageable).getContent();
         for (Course c : list) {
