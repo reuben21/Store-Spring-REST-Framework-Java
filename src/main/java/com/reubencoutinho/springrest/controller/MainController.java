@@ -42,8 +42,9 @@ public class MainController {
         return dto;
     }
 
-    @GetMapping("/api/course/pagination")
-    public CourseDto getCoursePages(@RequestParam("page") int page,@RequestParam("size") int size) {
+    @GetMapping("/api/course/pagination") //localhost:8080/api/course/pagination?page=2&size=2
+    public CourseDto getCoursePages(@RequestParam(value = "page",required = false,defaultValue = "0") int page,
+                                    @RequestParam(value = "size",required = false,defaultValue = "4") int size) {
         CourseDto dto = new CourseDto();
         double total = 0;
         Pageable pageable = PageRequest.of(page,size);
@@ -52,7 +53,7 @@ public class MainController {
         for (Course c : list) {
             total = total + c.getPrice();
         }
-        total = total - (total * 0.1); //10% Discount
+        total = total - (total * 0.2); //10% Discount
         dto.setDiscountPrice(total);
         dto.setList(list);
         return dto;
