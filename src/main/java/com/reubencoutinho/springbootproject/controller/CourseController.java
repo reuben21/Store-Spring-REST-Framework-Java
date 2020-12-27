@@ -1,20 +1,17 @@
 package com.reubencoutinho.springbootproject.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.reubencoutinho.springbootproject.model.*;
+import com.reubencoutinho.springbootproject.repository.*;
+import javafx.scene.canvas.GraphicsContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.reubencoutinho.springbootproject.model.Course;
-import com.reubencoutinho.springbootproject.model.Department;
-import com.reubencoutinho.springbootproject.model.Instructor;
-import com.reubencoutinho.springbootproject.repository.CourseRepository;
-import com.reubencoutinho.springbootproject.repository.DepartmentRepository;
-import com.reubencoutinho.springbootproject.repository.InstructorRepository;
 
 @RestController
 public class CourseController {
@@ -24,6 +21,12 @@ public class CourseController {
 	private DepartmentRepository departmentRepository;
 	@Autowired
 	private CourseRepository courseRepository;
+
+	@Autowired
+	private StudentRepository studentRepository;
+
+	@Autowired
+	private EnrollRepository enrollRepository;
 	
 	//create Instructor
 	@PostMapping("/instructor")
@@ -61,5 +64,31 @@ public class CourseController {
 		//save course 
 		 return courseRepository.save(course);
 	}
-	
+
+
+
+	//create enroll API for student in course
+	@PostMapping("/student/course/{studentId}/{courseId}")
+	public Enroll enrollStudentInCourse(@PathVariable("studentId") Long studentId,
+										@PathVariable("courseId") Long courseId){
+		//3/10
+		//fetch student object from studentID
+		Student student = studentRepository.getOne(studentId);
+
+		//fetch course object from courseID
+		Course course = courseRepository.getOne(courseId);
+
+		//attach student and course to enroll object
+		Enroll enroll = new Enroll();
+		enroll.setStudent(student);
+		enroll.setCourse(course);
+		enroll.setDate(LocalDate.now());
+
+		//save enroll object in DB
+		return enrollRepository.save(enroll);
+
+	}
+
+
+
 }

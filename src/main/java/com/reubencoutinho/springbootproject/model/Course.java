@@ -11,71 +11,69 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * 
- * Course : Department 
- * @OneToOne
- * Course: Instructor 
+ * Course : Department
+ *
+ * @OneToOne Course: Instructor
  * @OneToMany (course_instructor)
  */
 @Entity
 public class Course {
 
-	@Id //primary key
-	@GeneratedValue(strategy=GenerationType.AUTO) //auto incremented
-	private Long id; 
-	
-	private String name; 
-	
-	private int credits;
+    @Id //primary key
+    @GeneratedValue(strategy = GenerationType.AUTO) //auto incremented
+    private Long id;
 
-	//primary key of department will be added in course table 
-	@OneToOne
-	private Department department;
-	
-	@OneToMany
-	private List<Instructor> instructor;
-	
-	 
-	
-	public Long getId() {
-		return id;
-	}
+    private String name;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private int credits;
 
-	public String getName() {
-		return name;
-	}
+    //primary key of department will be added in course table
+    @OneToOne
+    private Department department;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @OneToMany
+    private List<Instructor> instructor;
 
-	public int getCredits() {
-		return credits;
-	}
 
-	public void setCredits(int credits) {
-		this.credits = credits;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Department getDepartment() {
-		return department;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public List<Instructor> getInstructor() {
-		return instructor;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setInstructor(List<Instructor> instructor) {
-		this.instructor = instructor;
-	} 
-	
-	
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public List<Instructor> getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(List<Instructor> instructor) {
+        this.instructor = instructor;
+    }
+
+
 }
