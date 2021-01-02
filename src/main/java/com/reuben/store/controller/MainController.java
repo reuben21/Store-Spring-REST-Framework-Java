@@ -8,12 +8,11 @@ import com.reuben.store.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -56,13 +55,15 @@ public class MainController {
     }
 
     @PostMapping("/customer/{customer_id}")
-    public Profile updateProfile(@RequestBody Profile profile,
+    public Customer updateProfile(@RequestBody Profile profile,
                                  @PathVariable("customer_id") Long customer_id) {
         // Saving the Vendor Details
+//        Customer c1 = new Customer();
         Customer c = customerRepository.getOne(customer_id);
-        profile.setCustomer(c);
         Profile p = profileRepository.save(profile);
-        return p;
+        c.setProfile(p);
+        Customer c2 = customerRepository.save(c);
+        return c2;
 //        System.out.println(c.getId());
 //        return c;
 
@@ -111,7 +112,10 @@ public class MainController {
         Purchase purchase = new Purchase();
         purchase.setCustomer(c);
         purchase.setProduct(p);
-        purchase.setDate(LocalDate.now());
+
+        LocalDate date = LocalDate.of(2020, Month.DECEMBER, 23);
+
+        purchase.setDate(date);
 
         //save enroll object in DB
         Purchase purchase1 =  purchaseRepository.save(purchase);
@@ -119,7 +123,40 @@ public class MainController {
 
     }
 
+    // Fetch API
 
+    @GetMapping("/product/purchase/{vendor_id}")
+    public List<Product> FetchProductsBeforeCertainDate(@PathVariable("vendor_id") Long vendor_id
+                              ){
+//        Vendor v = vendorRepository.getOne(vendor_id); //existing record
+
+        List<Product> productList = purchaseRepository.fetchAllProductsByVendorId(vendor_id);
+//        System.out.println(productList);
+        return productList;
+
+    }
+
+    @GetMapping("/customer/purchase/{vendor_id}")
+    public List<Customer> FetchCustomerFromCertainVendor(@PathVariable("vendor_id") Long vendor_id
+    ){
+//        Vendor v = vendorRepository.getOne(vendor_id); //existing record
+
+        List<Customer> productList = purchaseRepository.fetchAllCustomerByVendorId(vendor_id);
+//        System.out.println(productList);
+        return productList;
+
+    }
+
+    @GetMapping("/product/customer/{city}")
+    public List<Product> FetchProductsInCity(@PathVariable("city") String city
+    ){
+//        Vendor v = vendorRepository.getOne(vendor_id); //existing record
+
+        List<Product> productList = purchaseRepository.fetchAllProductsByCity(city);
+//        System.out.println(productList);
+        return productList;
+
+    }
 
 }
 

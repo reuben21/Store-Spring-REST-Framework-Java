@@ -15,6 +15,16 @@ public class Customer {
     @Column(length = 100)
     private String password;
 
+    @OneToOne
+    private Profile profile;
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
 
     public Long getId() {
         return id;
