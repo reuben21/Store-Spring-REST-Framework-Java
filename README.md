@@ -4,7 +4,7 @@ A Basic Store REST application using Spring Boot
 <br></br>
 <h4> Below is the image of The REST Framework Designed and the flow of the project</h4>
 
-<img src="https://firebasestorage.googleapis.com/v0/b/projects-in-java.appspot.com/o/SpringFrameworkCard.png?alt=media&token=b2510da9-6a1e-4b23-a9b7-aa8097be77ec" alt="error" width="80%"/>
+<img src="https://firebasestorage.googleapis.com/v0/b/projects-in-java.appspot.com/o/SpringFrameworkCard.png?alt=media&token=ecdd5765-14d2-4765-b049-8dd3f906086e" alt="error"/>
 
 <br></br>
 
