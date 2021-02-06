@@ -81,7 +81,7 @@ public class MainController {
     }
 
     @PostMapping("/customer/product/{customer_id}/{product_id}")
-    public ResponseEntity<?> enrollStudentInCourse(
+    public ResponseEntity<?> customerPurchaseProduct(
             @PathVariable("customer_id") Long customer_id,
             @PathVariable("product_id") Long product_id
     ){
