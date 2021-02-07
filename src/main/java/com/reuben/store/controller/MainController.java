@@ -71,9 +71,10 @@ public class MainController {
 
     ){
         // Saving the Vendor Details
-        String password_recived = customer.getPassword();
-        customer.setPassword(passwordEncoder.encode(password_recived));
-        Customer c = customerRepository.save(customer);
+        String email_received = customer.getEmail_id();
+        String password_received = customer.getPassword();
+//        customer.setPassword(passwordEncoder.encode(password_recived));
+        Customer c = customerRepository.fetchCustomerByEmail(email_received);
 //        System.out.println(c.getId());
         return c;
 
