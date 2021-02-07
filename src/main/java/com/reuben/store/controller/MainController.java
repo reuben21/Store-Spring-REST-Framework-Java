@@ -6,8 +6,11 @@ import com.reuben.store.exception.ResourceNotFoundException;
 import com.reuben.store.model.*;
 import com.reuben.store.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -34,6 +37,11 @@ public class MainController {
     @Autowired
     private PurchaseRepository purchaseRepository;
 
+    @Autowired //Could not autowire. No beans of 'PasswordEncoder' type found.
+    private PasswordEncoder passwordEncoder;
+
+
+
     @PostMapping("/vendor")
     public Vendor addVendor(@RequestBody Vendor vendor){
         // Saving the Vendor Details
@@ -41,18 +49,38 @@ public class MainController {
         return v;
     }
 
+
     @PostMapping("/customer")
     public Customer addCustomer(
             @RequestBody Customer customer
 
     ){
         // Saving the Vendor Details
+        String password_recived = customer.getPassword();
+        customer.setPassword(passwordEncoder.encode(password_recived));
         Customer c = customerRepository.save(customer);
 //        System.out.println(c.getId());
         return c;
 
 
     }
+
+    @PostMapping("/customer/login")
+    public Customer customerLogin(
+            @RequestBody Customer customer
+
+    ){
+        // Saving the Vendor Details
+        String password_recived = customer.getPassword();
+        customer.setPassword(passwordEncoder.encode(password_recived));
+        Customer c = customerRepository.save(customer);
+//        System.out.println(c.getId());
+        return c;
+
+
+    }
+
+
 
     @PostMapping("/customer/{customer_id}")
     public Customer updateProfile(@RequestBody Profile profile,
@@ -68,6 +96,7 @@ public class MainController {
 //        return c;
 
     }
+
 
     @PostMapping("addproduct/{vendor_id}")
     public Product AddProduct(@PathVariable("vendor_id") Long vendor_id,
