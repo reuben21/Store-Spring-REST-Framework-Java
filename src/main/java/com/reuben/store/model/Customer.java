@@ -64,23 +64,24 @@ public class Customer implements UserDetails {
         return password;
     }
 
+    @Override
+    public String getUsername() {
+        return email_id;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> list = new ArrayList<>();
-        SimpleGrantedAuthority sga = new SimpleGrantedAuthority(role);
-        list.add(sga);
+        Collection<GrantedAuthority> list = new ArrayList<>();
+        list.add(new SimpleGrantedAuthority(role));
         return list;
     }
 
 
-    @Override
-    public String getUsername() {
-        return null;
-    }
+
 
     @Override
     public boolean isAccountNonExpired() {
