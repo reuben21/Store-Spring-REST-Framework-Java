@@ -1,6 +1,25 @@
 <h2>
-A Basic Store REST application using Spring Boot
+A Store REST application using Spring Boot
 </h2>
+
+<h3>What was your motivation?</h3>
+<ul>
+  <li> To See How Spring Boot works compares to Node JS</li>
+</ul>
+<h3>Why did you build this project?</h3>
+<ul>
+  <li> To Learn How REST API's work with Spring Boot</li>
+</ul>
+<!-- <h3>What problem does it solve?</h3>
+<ul>
+  <li> To Learn How REST API's work with Spring Boot</li>
+</ul> -->
+<h3>What did you learn?</h3>
+<ul>
+  <li> Implement Spring Security </li>
+  <li> Spring Boot Automatically creates tables in the database </li>
+  <li> Also Learned to Perform Custom Queries </li>
+</ul>
 <br></br>
 <h4> Below is the image of The REST Framework Designed and the flow of the project</h4>
 
