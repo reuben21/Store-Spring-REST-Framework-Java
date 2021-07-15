@@ -4,7 +4,7 @@ A Store REST application using Spring Boot
 
 <h3>What was your motivation?</h3>
 <ul>
-  <li> To See How Spring Boot works compares to Node JS</li>
+  <li> To Learn Spring Boot and its Many New Features </li>
 </ul>
 <h3>Why did you build this project?</h3>
 <ul>
